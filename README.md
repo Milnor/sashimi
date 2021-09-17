@@ -2,3 +2,12 @@
 
 
 # Sashimi - Raw Sockets Library
+* WIP - completely unusable 🏗️
+## Current
+* IPv4
+* Linux
+* Unit Tests
+## Future
+* IPv6
+* Windows
+
