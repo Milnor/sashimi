@@ -1,6 +1,7 @@
-include "sashimi.h"
+#include "../include/sashimi.h"
 
 #include <errno.h>
+#include <netinet/in.h>
 #include <netinet/ip.h>
 #include <netinet/tcp.h>
 #include <stdint.h>
@@ -9,10 +10,15 @@ include "sashimi.h"
 #include <sys/socket.h>
 #include <unistd.h>
 
-
-
+#define DEMO_SIZE   25
 #define BUFFSIZE 	65536
-//#define TCP			6
+
+/* IP Header Fields */
+int get_protocol(struct iphdr * pkt);
+
+/* TCP Header Fields */
+
+/* UDP Header Fields */
 
 int raw_tcp()
 {
@@ -27,18 +33,34 @@ int raw_tcp()
 	return sock_fd; 
 }
 
+int get_protocol(struct iphdr * pkt)
+{
+    return pkt->protocol;
+}
+
+const char * get_protocol_name(struct iphdr * pkt)
+{
+    int layer4 = get_protocol(pkt);
+    switch (layer4)
+    {
+        case IPPROTO_ICMP:
+            return "ICMP";
+        case IPPROTO_TCP:
+            return "TCP";
+        case IPPROTO_UDP:
+            return "UDP";
+        default:
+            return "???";   // not supported, yet
+    }
+    /* Complete list in netinet/in.h */
+}
+
 void print_packet(uint8_t * packet, ssize_t size)
 {
 	struct iphdr *iph = (struct iphdr *)packet;
-	if (TCP == iph->protocol)
-	{
-		fprintf(stdout, "This is totally a TCP packet (%ld).\n", size);
-	}
-	else
-	{
-		fprintf(stdout, "That was not TCP (%ld).\n", size);
-	}
-	
+
+    char * layer4 = (char *) get_protocol_name(iph);
+    printf("[%lu] Next protocol header in this IP packet is %s\n", size, layer4);
 }
 
 int dummy(void)
@@ -57,7 +79,7 @@ int main(int argc, char ** argv)
 	uint8_t * buffer = calloc(BUFFSIZE, sizeof(uint8_t));
 	int my_raw = raw_tcp();
 
-	for (int i = 0; i < 3; i++)
+	for (int i = 0; i < DEMO_SIZE; i++)
 	{
 		bytes = recvfrom(my_raw, buffer, BUFFSIZE, 0, &saddr, &saddr_size);
 		fprintf(stdout, "%d: ", i);

@@ -4,6 +4,7 @@ set(CMAKE_C_CLANG_TIDY
 	clang-tidy;
 	-checks=*;)
 
+add_executable(sashimi src/sashimi.c)
 add_library(rawfish SHARED src/sashimi.c)
 
 include(CTest)
