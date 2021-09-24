@@ -1,23 +1,18 @@
-
+include "sashimi.h"
 
 #include <errno.h>
-
 #include <netinet/ip.h>
 #include <netinet/tcp.h>
-
 #include <stdint.h>
 #include <stdio.h>
-
 #include <stdlib.h>
-
-
 #include <sys/socket.h>
 #include <unistd.h>
 
 
 
 #define BUFFSIZE 	65536
-#define TCP			6
+//#define TCP			6
 
 int raw_tcp()
 {
