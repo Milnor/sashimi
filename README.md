@@ -11,3 +11,7 @@
 * IPv6
 * Windows
 
+## References
+* Silver Moon
+    - [https://www.binarytides.com/raw-sockets-c-code-linux/](How to Code Raw Sockets in C on Linux), Jul. 26, 2020
+    - [https://www.binarytides.com/packet-sniffer-code-c-linux/](How to code Packet Sniffer in C with Sockets on Linux), Aug. 5, 2020

@@ -89,10 +89,3 @@ int main(int argc, char ** argv)
 	return EXIT_SUCCESS;
 }
 
-/* References:
- * 
- * binarytides.com/packet-sniffer-code-c-linux/
- *
- * binarytides.com/whateverthesecondoneis...
- *
- */
